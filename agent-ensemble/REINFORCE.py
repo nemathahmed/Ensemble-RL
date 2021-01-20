@@ -19,9 +19,9 @@ tf.get_logger().setLevel('ERROR')
 
 
 #Initialize
-save=True
-plots=True
-
+log_save=False
+plots=False
+model_save=False
 ## REINFORCE Agent Class
 class REINFORCE:
   def __init__(self, env, path=None):
@@ -245,16 +245,22 @@ tf.random.set_random_seed(RANDOM_SEED)
 env=gym.make(ENV) # env to import
 env.seed(RANDOM_SEED)
 env.reset() # reset to env
-
 agent=REINFORCE(env)
-agent.train(500, 1)
-agent.test(100)
+def training():
+  agent.train(1000, 1)
+def testing():
+  agent.test(100)
 
+training()
+testing()
 #Plots
-if plots=True:
+if plots==True:
   plot_test(agent)
   plot_train(agent)
 
 #Save Logs
-if save==True:
+if log_save==True:
   save_logs(agent)
+
+if model_save==True:
+  agent.save_model()
